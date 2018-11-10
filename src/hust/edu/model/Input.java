@@ -15,7 +15,7 @@ public class Input {
         System.out.println("Nhap ten mon hoc: ");
         courseName = sc.nextLine();
         System.out.println("Nhap so tin chi: ");
-        credit = sc.nextInt();
+        credit = Integer.parseInt(sc.nextLine());
         Course course = new Course(courseId,courseName,credit);
         dataModel.addCourse(course);
         return course;
@@ -292,29 +292,44 @@ public class Input {
             if (flag.equals("0")){
                 System.out.println("Nhap ma sinh vien");
                 String id = sc.nextLine();
-                dataModel.getStudent(id).printClass();
+                if (dataModel.getStudent(id) != null)
+                    dataModel.getStudent(id).printClass();
+                else
+                    System.out.println("Khong tonn tai ID nay");
             }
             if (flag.equals("1")){
                 System.out.println("Nhap ma giao vien");
                 String id = sc.nextLine();
-                dataModel.getTeacher(id).printClass();
+                if (dataModel.getTeacher(id) != null)
+                    dataModel.getTeacher(id).printClass();
+                else
+                    System.out.println("Khong tonn tai ID nay");
             }
 
             if (flag.equals("2")){
                 System.out.println("Nhap ma giao vien");
                 String id = sc.nextLine();
-                dataModel.getTeacher(id).printStudent();
+                if (dataModel.getTeacher(id) != null)
+                    dataModel.getTeacher(id).printStudent();
+                else
+                    System.out.println("Khong tonn tai ID nay");
             }
 
             if (flag.equals("3")){
                 System.out.println("Nhap ma lop hoc");
                 String id = sc.nextLine();
-                dataModel.getClass(id).printStudent();
+                if (dataModel.getClass(id) != null)
+                    dataModel.getClass(id).printStudent();
+                else
+                    System.out.println("Khong tonn tai ID nay");
             }
             if (flag.equals("4")){
                 System.out.println("Nhap ma mon hoc");
                 String id = sc.nextLine();
-                dataModel.getCourse(id).printTeacher();
+                if (dataModel.getCourse(id) != null)
+                    dataModel.getCourse(id).printTeacher();
+                else
+                    System.out.println("Khong tonn tai ID nay");
             }
 
             if (flag.equals("5"))

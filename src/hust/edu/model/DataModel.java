@@ -10,14 +10,24 @@ public class DataModel {
 	private static List<Teacher> teachers = new ArrayList<>();
 	private static List<Class> classes = new ArrayList<>();
 
+	public boolean checkCourse(String courseId){
+		for (Course course : courses)
+			if (course.getCourseId().equals(courseId))
+				return false;
+		return true;
+	}
 	public void addCourse(String courseId, String courseName, int credit){
 		Course course = new Course(courseId,courseName,credit);
-		if ( !courses.contains(course))
+		if (checkCourse(courseId))
 			courses.add(course);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public void addCourse(Course course){
-		if ( !courses.contains(course))
+		if (checkCourse(course.getCourseId()))
 			courses.add(course);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public Course getCourse(String courseId){
 		for (Course course : courses){
@@ -25,8 +35,6 @@ public class DataModel {
 				return course;
 			}
 		}
-		System.out.println("ID khong ton tai. Thuc hien lai chuong trinh!");
-		System.exit(0);
 		return null;
 	}
 	public List<Course> getCoursesList() {
@@ -39,14 +47,24 @@ public class DataModel {
 		}
 	}
 
+	public boolean checkStudent(String studentId){
+		for (Student student :students)
+			if (student.getIdNumber().equals(studentId))
+				return false;
+		return true;
+	}
 	public void addStudent(String fullName, String studentId, String major, String program){
 		Student student = new Student(fullName,studentId,major,program);
-		if ( !students.contains(student))
+		if (checkStudent(studentId))
 			students.add(student);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public void addStudent(Student student){
-		if ( !students.contains(student))
+		if (checkStudent(student.getIdNumber()))
 			students.add(student);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public Student getStudent(String studentId){
 		for (Student student : students){
@@ -54,8 +72,6 @@ public class DataModel {
 				return student;
 			}
 		}
-		System.out.println("ID khong ton tai. Thuc hien lai chuong trinh!");
-		System.exit(0);
 		return null;
 	}
 	public List<Student> getStudentsList() {
@@ -63,6 +79,10 @@ public class DataModel {
 	}
 	public void removeStudent(String studentId){
 		Student student = getStudent(studentId);
+		if (student == null){
+			System.out.println("Khong ton tai ID nay");
+			return;
+		}
 		for (Class classs : classes)
 			classs.getStudents().remove(student);
 		students.remove(student);
@@ -74,14 +94,24 @@ public class DataModel {
 		}
 	}
 
+	public boolean checkTeacher(String teacherId){
+		for (Teacher teacher : teachers)
+			if (teacher.getIdNumber().equals(teacherId))
+				return false;
+		return true;
+	}
 	public void addTeacher(String fullName, String teacherId, String department){
 		Teacher teacher = new Teacher(fullName,teacherId,department);
-		if ( !teachers.contains(teacher))
+		if (checkTeacher(teacherId))
 			teachers.add(teacher);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public void addTeacher(Teacher teacher){
-		if ( !teachers.contains(teacher))
+		if (checkTeacher(teacher.getIdNumber()))
 			teachers.add(teacher);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public Teacher getTeacher(String teacherId){
 		for (Teacher teacher : teachers){
@@ -89,8 +119,6 @@ public class DataModel {
 				return teacher;
 			}
 		}
-		System.out.println("ID khong ton tai. Thuc hien lai chuong trinh!");
-		System.exit(0);
 		return null;
 	}
 	public List<Teacher> getTeachersList() {
@@ -103,18 +131,32 @@ public class DataModel {
 		}
 	}
 
+	public boolean checkClass(String classId){
+		for (Class classs : classes)
+			if (classs.getClassId().equals(classId))
+				return false;
+		return true;
+	}
 	public void addClass(String classId, String courseId, String teacherId){
 		Class classs = new Class(classId,courseId,teacherId);
-		if ( !classes.contains(classs))
+		if (checkClass(classId))
 			classes.add(classs);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public void addClass(Class classs){
-		if ( !classes.contains(classs))
+		if (checkClass(classs.getClassId()))
 			classes.add(classs);
+		else
+			System.out.println("ID da ton tai");
 	}
 	public void addStudentToClass(String studentId, String classId){
 		Class classs = getClass(classId);
 		Student student = getStudent(studentId);
+		if ((classs == null) || (student == null)){
+			System.out.println("Khong ton tai ID nay");
+			return;
+		}
 		classs.addStudent(student);
 	}
 	public Class getClass(String classId) {
@@ -122,8 +164,6 @@ public class DataModel {
 			if (classs.getClassId().equals(classId)){
 				return classs;
 			}
-		System.out.println("ID khong ton tai. Thuc hien lai chuong trinh!");
-		System.exit(0);
 		return null;
 	}
 	public List<Class> getClassList (){
